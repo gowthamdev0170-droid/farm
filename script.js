@@ -4,7 +4,11 @@ let myCrop = {
     price: 27
 };
 
+
+// SCREEN NAVIGATION
+
 function show(screenId) {
+
     const screens = document.querySelectorAll(".screen");
 
     screens.forEach(function(screen) {
@@ -17,19 +21,25 @@ function show(screenId) {
         selected.classList.add("active");
     }
 
+    updateDashboard();
+
     window.scrollTo(0, 0);
 }
 
 
 // ADD PRODUCE
+
 function addCrop() {
 
     const crop = document.getElementById("cropName").value;
     const quantity = document.getElementById("quantity").value;
     const price = document.getElementById("expectedPrice").value;
+    const harvest = document.getElementById("harvestDate").value;
 
     if (quantity === "" || price === "") {
-        alert("Please enter quantity and expected price.");
+
+        alert("⚠️ Please enter quantity and expected price.");
+
         return;
     }
 
@@ -37,47 +47,96 @@ function addCrop() {
     myCrop.quantity = Number(quantity);
     myCrop.price = Number(price);
 
-    alert(
-        "✅ Produce Listed Successfully!\n\n" +
-        crop + " - " + quantity + " kg\n" +
-        "Expected Price: ₹" + price + "/kg"
-    );
+    document.getElementById("addedProduce").innerHTML = `
+        <div class="produce-success">
 
-    updateFarmerDashboard();
+            <h3>✅ Produce Listed Successfully</h3>
+
+            <p>🌱 Crop: <b>${crop}</b></p>
+
+            <p>📦 Quantity: <b>${quantity} kg</b></p>
+
+            <p>💰 Expected Price: <b>₹${price}/kg</b></p>
+
+            <p>📅 Harvest Date: <b>${harvest || "Not selected"}</b></p>
+
+            <p>🟢 Status: <b>Available</b></p>
+
+        </div>
+    `;
+
+    updateDashboard();
+
+    alert("✅ Your produce has been listed!");
 
     show("farmer");
 }
 
 
-// UPDATE FARMER DASHBOARD
-function updateFarmerDashboard() {
+// UPDATE DASHBOARD
 
-    const cropTitle = document.querySelector("#farmer .card h3");
-    const paragraphs = document.querySelectorAll("#farmer .card p");
+function updateDashboard() {
 
-    if (cropTitle) {
-        cropTitle.innerText = "🌱 " + myCrop.name;
+    const quantity = document.getElementById("dashboardQuantity");
+    const earnings = document.getElementById("dashboardEarnings");
+
+    const decisionCrop = document.getElementById("decisionCrop");
+    const decisionQuantity = document.getElementById("decisionQuantity");
+
+    const poolQuantity = document.getElementById("poolYourQuantity");
+    const totalPool = document.getElementById("totalPool");
+
+    if (quantity) {
+        quantity.innerText = myCrop.quantity + " kg";
     }
 
-    if (paragraphs.length >= 2) {
-        paragraphs[0].innerHTML =
-            "Available: <b>" + myCrop.quantity + " kg</b>";
+    if (earnings) {
+        earnings.innerText =
+            "₹" + (myCrop.quantity * myCrop.price);
+    }
 
-        paragraphs[1].innerHTML =
-            "Fair Price: <b>₹" + myCrop.price + "/kg</b>";
+    if (decisionCrop) {
+        decisionCrop.innerText = myCrop.name;
+    }
+
+    if (decisionQuantity) {
+        decisionQuantity.innerText =
+            myCrop.quantity + " kg available";
+    }
+
+    if (poolQuantity) {
+        poolQuantity.innerText =
+            myCrop.quantity + " kg";
+    }
+
+    if (totalPool) {
+        totalPool.innerText =
+            (myCrop.quantity + 400) + " kg";
     }
 }
 
 
 // HOLD
+
 function holdCrop() {
+
+    const extraReturn =
+        myCrop.quantity * 5;
 
     alert(
         "🟢 HOLD PLAN ACTIVATED!\n\n" +
-        myCrop.name + ": " + myCrop.quantity + " kg\n" +
+
+        myCrop.name +
+        ": " +
+        myCrop.quantity +
+        " kg\n\n" +
+
         "Current Price: ₹20/kg\n" +
+
         "Expected Price: ₹25/kg\n\n" +
-        "Potential additional return: ₹500"
+
+        "Potential additional return: ₹" +
+        extraReturn
     );
 
     show("farmer");
@@ -85,15 +144,24 @@ function holdCrop() {
 
 
 // SELL
+
 function sellCrop() {
 
-    const revenue = myCrop.quantity * 20;
+    const revenue =
+        myCrop.quantity * 20;
 
     alert(
         "💰 PRODUCE MARKED FOR SALE!\n\n" +
-        myCrop.name + ": " + myCrop.quantity + " kg\n" +
+
+        myCrop.name +
+        ": " +
+        myCrop.quantity +
+        " kg\n\n" +
+
         "Selling Price: ₹20/kg\n" +
-        "Expected Revenue: ₹" + revenue
+
+        "Expected Revenue: ₹" +
+        revenue
     );
 
     show("farmer");
@@ -101,26 +169,58 @@ function sellCrop() {
 
 
 // POWER POOL
+
 function joinPool() {
 
-    alert(
-        "👥 POWER POOL JOINED!\n\n" +
-        "Your Quantity: " + myCrop.quantity + " kg\n" +
-        "Nearby Farmers: 400 kg\n" +
-        "Total Pool: " + (myCrop.quantity + 400) + " kg\n" +
-        "Buyer Demand: 450 kg\n\n" +
-        "🎯 Demand Match: 90%"
-    );
+    const total =
+        myCrop.quantity + 400;
+
+    document.getElementById("poolStatus").innerHTML = `
+        <div class="pool-success">
+
+            <b>✅ You joined the Power Pool!</b>
+
+            <p>Your contribution:
+            <b>${myCrop.quantity} kg</b></p>
+
+            <p>Total pool:
+            <b>${total} kg</b></p>
+
+            <p>Buyer demand:
+            <b>450 kg</b></p>
+
+            <p>🎯 Demand match: <b>90%</b></p>
+
+        </div>
+    `;
+
+    alert("👥 Successfully joined the Farmer Power Pool!");
 }
 
 
-// BUY
+// BUY PRODUCT
+
 function buyProduct(product) {
 
-    const orderProduct = document.getElementById("orderProduct");
+    const orderProduct =
+        document.getElementById("orderProduct");
+
+    const orderTotal =
+        document.getElementById("orderTotal");
 
     if (orderProduct) {
         orderProduct.innerText = product;
+    }
+
+    if (orderTotal) {
+
+        if (product === "Tomato") {
+            orderTotal.innerText = "₹30";
+        }
+
+        if (product === "Onion") {
+            orderTotal.innerText = "₹32";
+        }
     }
 
     show("order");

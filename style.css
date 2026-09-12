@@ -1,0 +1,75 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7f4;
+}
+
+.app {
+    max-width: 480px;
+    margin: auto;
+    padding: 20px;
+}
+
+.screen {
+    display: none;
+    min-height: 100vh;
+}
+
+.screen.active {
+    display: block;
+}
+
+#login {
+    text-align: center;
+    padding-top: 100px;
+}
+
+.logo {
+    font-size: 70px;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 5px;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 12px;
+    background: #2e7d32;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.card {
+    background: white;
+    padding: 18px;
+    margin: 15px 0;
+    border-radius: 15px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}

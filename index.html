@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FARMSYNC</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <div id="login" class="screen active">
+        <div class="logo">🌱</div>
+        <h1>FARMSYNC</h1>
+        <p>Farm to Family</p>
+
+        <button onclick="show('farmer')">👨‍🌾 Farmer</button>
+        <button onclick="show('consumer')">🛒 Consumer</button>
+    </div>
+
+
+    <div id="farmer" class="screen">
+        <h2>Farmer Dashboard 👋</h2>
+
+        <div class="card">
+            <h3>🍅 Tomato</h3>
+            <p>Available: <b>100 kg</b></p>
+            <p>Fair Price: <b>₹27/kg</b></p>
+        </div>
+
+        <button onclick="show('crop')">➕ Add Crop</button>
+        <button onclick="show('decision')">🧠 Sell / Hold</button>
+        <button onclick="show('pool')">👥 Power Pool</button>
+    </div>
+
+
+    <div id="crop" class="screen">
+        <h2>➕ Add Crop</h2>
+
+        <input placeholder="Crop name">
+        <input placeholder="Quantity (kg)" type="number">
+        <input placeholder="Expected price">
+
+        <button onclick="alert('Crop added successfully!')">
+            Add Produce
+        </button>
+
+        <button onclick="show('farmer')">← Back</button>
+    </div>
+
+
+    <div id="decision" class="screen">
+        <h2>🧠 Smart Sell / Hold</h2>
+
+        <div class="card">
+            <h3>🍅 Tomato</h3>
+            <p>Current Price: ₹20/kg</p>
+            <p>Expected Price: ₹25/kg</p>
+            <p>Storage: ✅ Available</p>
+
+            <h3>🟢 Recommendation: HOLD</h3>
+            <p>Hold for 3 days for better price.</p>
+        </div>
+
+        <button onclick="alert('Produce added to holding plan!')">
+            HOLD
+        </button>
+
+        <button onclick="alert('Produce marked for selling!')">
+            SELL NOW
+        </button>
+
+        <button onclick="show('farmer')">← Back</button>
+    </div>
+
+
+    <div id="pool" class="screen">
+        <h2>👥 Farmer Power Pool</h2>
+
+        <div class="card">
+            <p>Your quantity: <b>100 kg</b></p>
+            <p>Nearby farmers: <b>400 kg</b></p>
+            <p>Total Pool: <b>500 kg</b></p>
+            <p>Consumer Demand: <b>450 kg</b></p>
+        </div>
+
+        <button onclick="alert('You joined the Power Pool!')">
+            JOIN POWER POOL
+        </button>
+
+        <button onclick="show('farmer')">← Back</button>
+    </div>
+
+
+    <div id="consumer" class="screen">
+        <h2>🛒 Fresh From Farmers</h2>
+
+        <div class="card">
+            <h3>🍅 Tomato</h3>
+            <p>₹30 / kg</p>
+            <button onclick="alert('Tomato added to cart!')">
+                BUY NOW
+            </button>
+        </div>
+
+        <div class="card">
+            <h3>🧅 Onion</h3>
+            <p>₹32 / kg</p>
+            <button onclick="alert('Onion added to cart!')">
+                BUY NOW
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

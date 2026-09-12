@@ -16,7 +16,6 @@ body {
     padding: 18px;
 }
 
-/* SCREEN */
 .screen {
     display: none;
     min-height: 100vh;
@@ -27,6 +26,7 @@ body {
 }
 
 /* LOGIN */
+
 .hero {
     text-align: center;
     padding-top: 55px;
@@ -43,7 +43,6 @@ body {
 
 .hero p {
     font-size: 18px;
-    margin: 5px;
 }
 
 .hero small {
@@ -58,11 +57,8 @@ body {
     box-shadow: 0 5px 20px rgba(0,0,0,0.08);
 }
 
-.login-box h2 {
-    margin-bottom: 5px;
-}
+/* BUTTON */
 
-/* BUTTONS */
 button {
     width: 100%;
     padding: 15px;
@@ -90,7 +86,8 @@ button:active {
     border: 2px solid #2e7d32;
 }
 
-/* TOP BAR */
+/* TOPBAR */
+
 .topbar {
     display: flex;
     justify-content: space-between;
@@ -108,6 +105,7 @@ button:active {
 }
 
 /* HIGHLIGHT */
+
 .highlight {
     background: #2e7d32;
     color: white;
@@ -122,6 +120,7 @@ button:active {
 }
 
 /* STATS */
+
 .stats {
     display: flex;
     gap: 12px;
@@ -147,7 +146,8 @@ button:active {
     font-size: 19px;
 }
 
-/* FEATURE */
+/* FEATURES */
+
 .feature-card {
     background: white;
     padding: 17px;
@@ -173,7 +173,8 @@ button:active {
     font-size: 30px;
 }
 
-/* PAGE HEADER */
+/* HEADER */
+
 .page-header {
     display: flex;
     align-items: center;
@@ -191,4 +192,258 @@ button:active {
     padding: 10px;
 }
 
-/*
+/* FORM */
+
+.form-card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ccd5cd;
+    border-radius: 11px;
+    font-size: 16px;
+    background: white;
+}
+
+/* CARDS */
+
+.card,
+.crop-card,
+.pool-card,
+.order-card {
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+/* SELL HOLD */
+
+.crop-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.crop-title span {
+    font-size: 45px;
+}
+
+.crop-title h2 {
+    margin: 0;
+}
+
+.price-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.price-row div {
+    flex: 1;
+    background: #f1f6f1;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.price-row small,
+.price-row b {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.recommendation {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: #e8f5e9;
+    padding: 17px;
+    border-radius: 16px;
+    margin: 15px 0;
+}
+
+.recommendation > span {
+    font-size: 28px;
+}
+
+.recommendation p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.reason {
+    background: white;
+    padding: 17px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+}
+
+/* POWER POOL */
+
+.pool-banner {
+    text-align: center;
+    background: #e8f5e9;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.pool-banner span {
+    font-size: 50px;
+}
+
+.pool-banner h2 {
+    margin: 10px 0;
+}
+
+.pool-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.pool-item {
+    background: #f4f7f4;
+    padding: 15px;
+    border-radius: 13px;
+}
+
+.pool-item small,
+.pool-item b {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.match {
+    background: white;
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+}
+
+.pool-success {
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 14px;
+    margin: 10px 0;
+}
+
+/* PRODUCTS */
+
+.search {
+    background: white;
+    padding: 15px;
+    border-radius: 13px;
+    color: #78847b;
+    margin-bottom: 20px;
+}
+
+.product-card {
+    display: flex;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 18px;
+    margin: 13px 0;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+}
+
+.product-image {
+    width: 75px;
+    height: 75px;
+    background: #eef5ed;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h3 {
+    margin: 3px 0;
+}
+
+.product-info p {
+    color: #718077;
+    font-size: 13px;
+}
+
+.product-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.product-price button {
+    width: auto;
+    padding: 9px 15px;
+    margin: 0;
+    font-size: 13px;
+}
+
+.transparent-price {
+    background: #fff8e1;
+    padding: 17px;
+    border-radius: 15px;
+    margin: 18px 0;
+}
+
+/* ORDER */
+
+.success {
+    text-align: center;
+    padding-top: 60px;
+}
+
+.success div {
+    font-size: 70px;
+}
+
+.success h1 {
+    font-size: 28px;
+}
+
+.order-card {
+    margin: 25px 0;
+}
+
+.order-card p {
+    color: #718077;
+    margin-bottom: 3px;
+}
+
+.order-card hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 18px 0;
+}
+
+/* ADDED PRODUCE */
+
+.produce-success {
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 14px;
+    margin-top: 15px;
+}
+
+.produce-success h3 {
+    margin-top: 0;
+}

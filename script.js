@@ -1,227 +1,114 @@
-let myCrop = {
-    name: "Tomato",
-    quantity: 100,
-    price: 27
-};
-
-
-// SCREEN NAVIGATION
+let confirmationResult = null;
+let recaptchaVerifier = null;
 
 function show(screenId) {
-
-    const screens = document.querySelectorAll(".screen");
-
-    screens.forEach(function(screen) {
+    document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
 
-    const selected = document.getElementById(screenId);
+    const screen = document.getElementById(screenId);
 
-    if (selected) {
-        selected.classList.add("active");
+    if (screen) {
+        screen.classList.add("active");
     }
-
-    updateDashboard();
 
     window.scrollTo(0, 0);
 }
 
 
-// ADD PRODUCE
+// REAL OTP SEND
 
-function addCrop() {
+async function sendOTP() {
 
-    const crop = document.getElementById("cropName").value;
-    const quantity = document.getElementById("quantity").value;
-    const price = document.getElementById("expectedPrice").value;
-    const harvest = document.getElementById("harvestDate").value;
+    const mobile =
+        document.getElementById("mobileNumber").value.trim();
 
-    if (quantity === "" || price === "") {
-
-        alert("⚠️ Please enter quantity and expected price.");
-
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        alert("Please enter a valid 10-digit mobile number.");
         return;
     }
 
-    myCrop.name = crop;
-    myCrop.quantity = Number(quantity);
-    myCrop.price = Number(price);
+    try {
 
-    document.getElementById("addedProduce").innerHTML = `
-        <div class="produce-success">
+        if (!recaptchaVerifier) {
 
-            <h3>✅ Produce Listed Successfully</h3>
-
-            <p>🌱 Crop: <b>${crop}</b></p>
-
-            <p>📦 Quantity: <b>${quantity} kg</b></p>
-
-            <p>💰 Expected Price: <b>₹${price}/kg</b></p>
-
-            <p>📅 Harvest Date: <b>${harvest || "Not selected"}</b></p>
-
-            <p>🟢 Status: <b>Available</b></p>
-
-        </div>
-    `;
-
-    updateDashboard();
-
-    alert("✅ Your produce has been listed!");
-
-    show("farmer");
-}
-
-
-// UPDATE DASHBOARD
-
-function updateDashboard() {
-
-    const quantity = document.getElementById("dashboardQuantity");
-    const earnings = document.getElementById("dashboardEarnings");
-
-    const decisionCrop = document.getElementById("decisionCrop");
-    const decisionQuantity = document.getElementById("decisionQuantity");
-
-    const poolQuantity = document.getElementById("poolYourQuantity");
-    const totalPool = document.getElementById("totalPool");
-
-    if (quantity) {
-        quantity.innerText = myCrop.quantity + " kg";
-    }
-
-    if (earnings) {
-        earnings.innerText =
-            "₹" + (myCrop.quantity * myCrop.price);
-    }
-
-    if (decisionCrop) {
-        decisionCrop.innerText = myCrop.name;
-    }
-
-    if (decisionQuantity) {
-        decisionQuantity.innerText =
-            myCrop.quantity + " kg available";
-    }
-
-    if (poolQuantity) {
-        poolQuantity.innerText =
-            myCrop.quantity + " kg";
-    }
-
-    if (totalPool) {
-        totalPool.innerText =
-            (myCrop.quantity + 400) + " kg";
-    }
-}
-
-
-// HOLD
-
-function holdCrop() {
-
-    const extraReturn =
-        myCrop.quantity * 5;
-
-    alert(
-        "🟢 HOLD PLAN ACTIVATED!\n\n" +
-
-        myCrop.name +
-        ": " +
-        myCrop.quantity +
-        " kg\n\n" +
-
-        "Current Price: ₹20/kg\n" +
-
-        "Expected Price: ₹25/kg\n\n" +
-
-        "Potential additional return: ₹" +
-        extraReturn
-    );
-
-    show("farmer");
-}
-
-
-// SELL
-
-function sellCrop() {
-
-    const revenue =
-        myCrop.quantity * 20;
-
-    alert(
-        "💰 PRODUCE MARKED FOR SALE!\n\n" +
-
-        myCrop.name +
-        ": " +
-        myCrop.quantity +
-        " kg\n\n" +
-
-        "Selling Price: ₹20/kg\n" +
-
-        "Expected Revenue: ₹" +
-        revenue
-    );
-
-    show("farmer");
-}
-
-
-// POWER POOL
-
-function joinPool() {
-
-    const total =
-        myCrop.quantity + 400;
-
-    document.getElementById("poolStatus").innerHTML = `
-        <div class="pool-success">
-
-            <b>✅ You joined the Power Pool!</b>
-
-            <p>Your contribution:
-            <b>${myCrop.quantity} kg</b></p>
-
-            <p>Total pool:
-            <b>${total} kg</b></p>
-
-            <p>Buyer demand:
-            <b>450 kg</b></p>
-
-            <p>🎯 Demand match: <b>90%</b></p>
-
-        </div>
-    `;
-
-    alert("👥 Successfully joined the Farmer Power Pool!");
-}
-
-
-// BUY PRODUCT
-
-function buyProduct(product) {
-
-    const orderProduct =
-        document.getElementById("orderProduct");
-
-    const orderTotal =
-        document.getElementById("orderTotal");
-
-    if (orderProduct) {
-        orderProduct.innerText = product;
-    }
-
-    if (orderTotal) {
-
-        if (product === "Tomato") {
-            orderTotal.innerText = "₹30";
+            recaptchaVerifier =
+                new window.RecaptchaVerifier(
+                    window.firebaseAuth,
+                    "recaptcha-container",
+                    {
+                        size: "normal"
+                    }
+                );
         }
 
-        if (product === "Onion") {
-            orderTotal.innerText = "₹32";
+        const phoneNumber = "+91" + mobile;
+
+        confirmationResult =
+            await window.signInWithPhoneNumber(
+                window.firebaseAuth,
+                phoneNumber,
+                recaptchaVerifier
+            );
+
+        document.getElementById("otpMessage").innerText =
+            "OTP sent to +91 " + mobile;
+
+        show("otp");
+
+        alert("✅ Real OTP sent to your mobile!");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ OTP could not be sent.\n\n" +
+            error.message
+        );
+
+        if (recaptchaVerifier) {
+            recaptchaVerifier.clear();
+            recaptchaVerifier = null;
         }
     }
+}
 
-    show("order");
+
+// VERIFY OTP
+
+async function verifyOTP() {
+
+    const otp =
+        document.getElementById("otpInput").value.trim();
+
+    if (!confirmationResult) {
+        alert("Please request OTP first.");
+        return;
+    }
+
+    if (!/^[0-9]{6}$/.test(otp)) {
+        alert("Enter the 6-digit OTP.");
+        return;
+    }
+
+    try {
+
+        await confirmationResult.confirm(otp);
+
+        alert("✅ Mobile number verified!");
+
+        document.getElementById("otpInput").value = "";
+
+        show("role");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Incorrect OTP.\n\n" +
+            "Please check the OTP and try again."
+        );
+    }
 }

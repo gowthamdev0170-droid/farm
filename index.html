@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FARMSYNC - Smart Farm Trade</title>
+    <title>FARMSYNC</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,7 +16,7 @@
         <div class="hero">
             <div class="logo">🌱</div>
             <h1>FARMSYNC</h1>
-            <p>Smart Farm Trade Network</p>
+            <p>Farm to Family</p>
             <small>Fair Price • Direct Market • Better Returns</small>
         </div>
 
@@ -24,13 +24,8 @@
             <h2>Welcome 👋</h2>
             <p>Choose your account</p>
 
-            <button onclick="show('farmer')">
-                👨‍🌾 Continue as Farmer
-            </button>
-
-            <button onclick="show('consumer')">
-                🛒 Continue as Consumer
-            </button>
+            <button onclick="show('farmer')">👨‍🌾 Farmer</button>
+            <button onclick="show('consumer')">🛒 Consumer</button>
         </div>
     </div>
 
@@ -55,13 +50,13 @@
         <div class="stats">
             <div class="stat-card">
                 <span>🌾</span>
-                <b>100 kg</b>
+                <b id="dashboardQuantity">100 kg</b>
                 <small>My Produce</small>
             </div>
 
             <div class="stat-card">
                 <span>💰</span>
-                <b>₹2,700</b>
+                <b id="dashboardEarnings">₹2,700</b>
                 <small>Expected Earnings</small>
             </div>
         </div>
@@ -88,6 +83,8 @@
 
         <button onclick="show('crop')">➕ Add New Produce</button>
 
+        <div id="dashboardProduce"></div>
+
         <button class="secondary" onclick="show('login')">
             ← Logout
         </button>
@@ -106,6 +103,7 @@
         <div class="form-card">
 
             <label>Crop Name</label>
+
             <select id="cropName">
                 <option>Tomato</option>
                 <option>Onion</option>
@@ -120,11 +118,13 @@
             <input id="expectedPrice" type="number" placeholder="Example: 25">
 
             <label>Harvest Date</label>
-            <input type="date">
+            <input id="harvestDate" type="date">
 
             <button onclick="addCrop()">
                 LIST MY PRODUCE
             </button>
+
+            <div id="addedProduce"></div>
 
         </div>
 
@@ -143,13 +143,15 @@
 
             <div class="crop-title">
                 <span>🍅</span>
+
                 <div>
-                    <h2>Tomato</h2>
-                    <small>100 kg available</small>
+                    <h2 id="decisionCrop">Tomato</h2>
+                    <small id="decisionQuantity">100 kg available</small>
                 </div>
             </div>
 
             <div class="price-row">
+
                 <div>
                     <small>Current Price</small>
                     <b>₹20/kg</b>
@@ -159,12 +161,14 @@
                     <small>Expected Price</small>
                     <b>₹25/kg</b>
                 </div>
+
             </div>
 
         </div>
 
         <div class="recommendation">
             <span>🟢</span>
+
             <div>
                 <b>RECOMMENDATION: HOLD</b>
                 <p>Expected price may increase in 3 days.</p>
@@ -173,6 +177,7 @@
 
         <div class="reason">
             <b>Why?</b>
+
             <p>✓ Demand is increasing</p>
             <p>✓ Storage is available</p>
             <p>✓ Expected price is higher</p>
@@ -199,15 +204,19 @@
 
         <div class="pool-banner">
             <span>👥</span>
+
             <h2>Stronger Together</h2>
-            <p>Combine small quantities to fulfil bulk demand.</p>
+
+            <p>
+                Combine small quantities to fulfil bulk demand.
+            </p>
         </div>
 
         <div class="pool-card">
 
             <div class="pool-item">
                 <small>Your Quantity</small>
-                <b>100 kg</b>
+                <b id="poolYourQuantity">100 kg</b>
             </div>
 
             <div class="pool-item">
@@ -217,7 +226,7 @@
 
             <div class="pool-item">
                 <small>Total Pool</small>
-                <b>500 kg</b>
+                <b id="totalPool">500 kg</b>
             </div>
 
             <div class="pool-item">
@@ -229,8 +238,13 @@
 
         <div class="match">
             <b>🎯 Demand Match: 90%</b>
-            <p>Bulk demand is available for your crop.</p>
+
+            <p>
+                Bulk demand is available for your crop.
+            </p>
         </div>
+
+        <div id="poolStatus"></div>
 
         <button onclick="joinPool()">
             👥 JOIN POWER POOL
@@ -239,15 +253,18 @@
     </div>
 
 
-    <!-- CONSUMER HOME -->
+    <!-- CONSUMER -->
     <div id="consumer" class="screen">
 
         <div class="topbar">
+
             <div>
                 <small>Fresh from farmers</small>
                 <h2>FARMSYNC 🛒</h2>
             </div>
+
             <div class="cart">🛒</div>
+
         </div>
 
         <div class="search">
@@ -261,40 +278,59 @@
             <div class="product-image">🍅</div>
 
             <div class="product-info">
+
                 <h3>Tomato</h3>
+
                 <p>Direct from farmers</p>
 
                 <div class="product-price">
+
                     <b>₹30/kg</b>
+
                     <button onclick="buyProduct('Tomato')">
                         BUY
                     </button>
+
                 </div>
+
             </div>
 
         </div>
+
 
         <div class="product-card">
 
             <div class="product-image">🧅</div>
 
             <div class="product-info">
+
                 <h3>Onion</h3>
+
                 <p>Direct from farmers</p>
 
                 <div class="product-price">
+
                     <b>₹32/kg</b>
+
                     <button onclick="buyProduct('Onion')">
                         BUY
                     </button>
+
                 </div>
+
             </div>
 
         </div>
 
+
         <div class="transparent-price">
+
             <b>💡 Transparent Pricing</b>
-            <p>Farmer price + logistics = consumer price</p>
+
+            <p>
+                Farmer price + logistics = consumer price
+            </p>
+
         </div>
 
         <button class="secondary" onclick="show('login')">
@@ -304,16 +340,23 @@
     </div>
 
 
-    <!-- ORDER -->
+    <!-- ORDER CONFIRMATION -->
     <div id="order" class="screen">
 
         <div class="success">
+
             <div>✅</div>
+
             <h1>Order Confirmed!</h1>
-            <p>Your produce is being prepared directly from the farmer.</p>
+
+            <p>
+                Your produce is being prepared directly from the farmer.
+            </p>
+
         </div>
 
         <div class="order-card">
+
             <p>Order ID</p>
             <b>#FS1024</b>
 
@@ -326,7 +369,8 @@
             <b>1 kg</b>
 
             <p>Total</p>
-            <b>₹30</b>
+            <b id="orderTotal">₹30</b>
+
         </div>
 
         <button onclick="show('consumer')">
